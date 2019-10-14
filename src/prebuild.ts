@@ -18,7 +18,7 @@ forEach(tasks.getTasks(), (task) => {
     const taskFilePath = path.join(task.directory, "task.json");
     const taskFile = fs.existsSync(taskFilePath) ? fs.readJsonSync(taskFilePath) : {};
 
-    if (taskFile.execution.Node) {
+    if (taskFile.execution.hasOwnProperty('Node')) {
         fs.ensureDirSync(targetNodeCommonDir);
         fs.ensureDirSync(taskNodeModules);
         forEach(nodeFiles, (commonFile) => {
@@ -28,7 +28,7 @@ forEach(tasks.getTasks(), (task) => {
         });
     }
 
-    if (taskFile.execution.PowerShell3) {
+    if (taskFile.execution.hasOwnProperty('PowerShell3')) {
         fs.ensureDirSync(targetPowershellCommonDir);
         forEach(powershellFiles, (commonFile) => {
             const targetFile = path.join(targetPowershellCommonDir, commonFile);
